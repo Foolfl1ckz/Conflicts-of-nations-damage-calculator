@@ -2,7 +2,7 @@ import dearpygui.dearpygui as dpg
 import UnitClass as uc
 import json
 import os
-import shutil
+
 
 SAVE_DIR = "unit_saves"  # Subfolder for save files
 
