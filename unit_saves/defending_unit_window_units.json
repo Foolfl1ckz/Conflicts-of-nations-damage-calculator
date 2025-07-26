@@ -1,0 +1,56 @@
+[
+    {
+        "unit": {
+            "name": "Motorized Infantry",
+            "weight": 3,
+            "debuffs": {
+                "open": 0,
+                "mountain": 0,
+                "forest": 0,
+                "city": 0,
+                "suburbs": 0,
+                "jungle": 0,
+                "tundra": 0,
+                "desert": 0,
+                "deep_sea": 0,
+                "low_sea": 0
+            }
+        },
+        "amount": 1,
+        "defence_buff": 25,
+        "terrain": "open",
+        "health": 100.0,
+        "max_health": 100.0,
+        "type_override_checked": false,
+        "type_override_value": "None",
+        "label_text": "soft",
+        "type": "soft"
+    },
+    {
+        "unit": {
+            "name": "Towed Artillery",
+            "weight": 2,
+            "debuffs": {
+                "open": 0,
+                "mountain": 0,
+                "forest": 0,
+                "city": 0,
+                "suburbs": 0,
+                "jungle": 0,
+                "tundra": 0,
+                "desert": 0,
+                "deep_sea": 0,
+                "low_sea": 0
+            }
+        },
+        "amount": 1,
+        "defence_buff": 0,
+        "terrain": "open",
+        "health": 100.0,
+        "max_health": 100.0,
+        "type_override_checked": false,
+        "type_override_value": "None",
+        "label_text": "soft",
+        "type": "soft"
+    }
+]
