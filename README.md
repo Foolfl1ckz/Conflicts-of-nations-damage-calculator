@@ -8,7 +8,7 @@ Using information from the [Conflict of Nations’s teacher wiki](https://docs.g
 
 - Add and manage units
 - Save/load unit configurations
-- Simulate basic damage scenarios
+- Simulate basic one-way damage scenarios (Only ground units)
 
 ## Requirements
 
