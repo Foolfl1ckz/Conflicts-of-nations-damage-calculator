@@ -1,5 +1,4 @@
 # Conflicts of nations damage calculator
-# DamageCalc
 
 A graphical unit listing and damage simulation tool for [Dear PyGui](https://github.com/hoffstadt/DearPyGui).
 
