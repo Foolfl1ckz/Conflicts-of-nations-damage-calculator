@@ -1,4 +1,4 @@
-type_list = ["soft", "hard", "fixed wing", "rotary wing", "drone", "missile", "ship", "submarine", "multible"]
+type_list = ["soft", "hard", "fixed wing", "rotary wing", "drone", "missile", "ship", "submarine"]
 class Debuff:
     def __init__(self, open=0, mountain=0, forest=0, city=0, suburbs=0,
                  jungle=0, tundra=0, desert=0, deep_sea=0, low_sea=0):
@@ -48,6 +48,7 @@ class Unit:
 
     @classmethod
     def from_dict(cls, data, type, extra_debuffs = 0):
+        "Loads unit from a dictionary"
         debuff = Debuff.from_dict(data["debuffs"])
         return cls(data["name"], data["weight"], debuff, type, extra_debuffs)
 
@@ -73,10 +74,9 @@ class UnitDamage:
             weight_list.append(unit.weight)
             sum += unit.weight
         for i in weight_list:
-            weighted_list.append(i/sum)
+            weighted_list.append(i/sum) #Gets damage percentile
         for i in range(len(self.unit_list)):
             unit = self.unit_list[i]
-            print(unit.type)
-            amplifyer = (100-unit.extra_debuffs)/100
-            dealt_dmg.append((unit, (dmg_dict[unit.type]*weighted_list[i])*amplifyer))
+            amplifyer = (100-unit.extra_debuffs)/100 #Applies simple buffs/debuffs
+            dealt_dmg.append((unit, (dmg_dict[unit.type]*weighted_list[i])*amplifyer)) #Gets estimated damage (Note there is rng on upto +/-50%)
         return dealt_dmg

@@ -47,6 +47,7 @@ class DefendingUnitWindow:
             checkbox_value = False
 
         def change_type():
+            """Changes the state of the type selection (Used for calculating damage to vehicles under transport)"""
             if dpg.is_item_visible(f"{self.group_id}_sub_group_{tag_suffix}_label"):
                 dpg.hide_item(f"{self.group_id}_sub_group_{tag_suffix}_label")
                 dpg.show_item(f"{self.group_id}_sub_group_{tag_suffix}_combo")
@@ -276,6 +277,7 @@ class SimpleAttackWindow:
     def _create_window(self):
         with dpg.window(label="Simple Attack Window", tag=self.window_id):
             with dpg.group(tag=self.group_id):
+                dpg.add_text("Remeber to save your defending unit window before running")
                 for i in self.type_list:
                     self.type_group(i)
                 dpg.add_button(label="Simulate single attack", callback=self.simulate_single_attack)

@@ -1,5 +1,8 @@
 import UnitClass as uc
-type_list = ["soft", "hard", "fixed wing", "rotary wing", "drone", "missile", "ship", "submarine", "multible"]
+"""
+File with unit data such as types, tarrain, names and more
+"""
+type_list = ["soft", "hard", "fixed wing", "rotary wing", "drone", "missile", "ship", "submarine"]
 
 unit_list = [
     uc.Unit("Motorized Infantry", 3, uc.Debuff(), type_list[0]),
