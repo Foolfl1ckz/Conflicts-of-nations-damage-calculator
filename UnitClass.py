@@ -98,11 +98,12 @@ class UnitInfo:
         self.current_unit_max_health = max_health - (max_health/amount)*(amount-1)
         current_unit_health_ratio =  self.current_unit_health/self.current_unit_max_health
         self.current_unit_dmg_list = [] 
+        self.alive = True
         for dmg_tuple in solo_dmg_list:
             current_dmg_tuple_list = []
             for dmg in dmg_tuple:
                 current_dmg_tuple_list.append(dmg*current_unit_health_ratio)
-            self.current_unit_dmg_list.append(current_dmg_tuple_list[0],current_dmg_tuple_list[1])
+            self.current_unit_dmg_list.append((current_dmg_tuple_list[0],current_dmg_tuple_list[1]))
     
     def update_current_unit(self):
         self.current_unit_health = self.health - (self.max_health/self.amount)*(self.amount-1)
@@ -113,7 +114,40 @@ class UnitInfo:
             current_dmg_tuple_list = []
             for dmg in dmg_tuple:
                 current_dmg_tuple_list.append(dmg*current_unit_health_ratio)
-            self.current_unit_dmg_list.append(current_dmg_tuple_list[0],current_dmg_tuple_list[1])
+            self.current_unit_dmg_list.append((current_dmg_tuple_list[0],current_dmg_tuple_list[1]))
+    
+    def calc_attack(self): 
+        atk_dmg_list = []
+        for i in range(len(self.solo_dmg_list)):
+            dmg_tuple_solo = self.solo_dmg_list[i]
+            current_unit_dmg_tuple = self.current_unit_dmg_list[i]
+            dmg_tuple_list = []
+            for j in range(len(dmg_tuple_solo)):
+                dmg_solo, current_dmg = dmg_tuple_solo[j], current_unit_dmg_tuple[j]
+                dmg_tuple_list.append(dmg_solo*(self.amount-1)+current_dmg)
+            atk_dmg_list.append((dmg_tuple_list[0],dmg_tuple_list[1]))
+        return atk_dmg_list
+
+
+    def take_dmg(self, dmg):
+        self.current_unit_health -= dmg
+        if self.current_unit_health <= 0:
+            self.current_unit_health += self.max_health/self.amount
+            self.max_health -= self.max_health/self.amount
+            self.amount -= 1
+
+        self.health -= dmg
+        if self.health <= 0 or self.amount <= 0:
+            self.alive = False
+        
+        self.update_current_unit()
+
+        
+
+            
+        
+
+
 
 
 
@@ -129,6 +163,38 @@ class UnitStack:
         - enemy: of type UnitStack
         """
         
+    def calc_dmg_share(self, total_dmg_list: list[tuple[float,float]], attack_mode: bool):
+        dmg_list = []
+        if attack_mode:
+            for dmg in total_dmg_list:
+                dmg_list.append(dmg[0])
+        else: 
+            for dmg in total_dmg_list:
+                dmg_list.append(dmg[1])
+
+        def zip_dmg_list(unzipped_dmg_list):
+            zipped_dmg_dict = {}
+            for i in range(len(dmg_list)):
+                zipped_dmg_dict[type_list[i]] = unzipped_dmg_list[i]
+            return zipped_dmg_dict
+        
+        dmg_dict = zip_dmg_list(dmg_list)
 
 
+if __name__ == "__main__":
+    unit = Unit("Motorized Infantry", 3, Debuff(), type_list[0])
+    dmg = [
 
+        (4,6.3),
+        (2,3.1),
+        (0,1.3),
+        (0,1.6),
+        (0,0),
+        (0,0),
+        (0,0),
+        (0,0),
+        (0.1,0),
+        (2,0),
+    ]
+    test = UnitInfo(unit, 4, dmg, 63.3,68)
+    print(test.calc_attack())
