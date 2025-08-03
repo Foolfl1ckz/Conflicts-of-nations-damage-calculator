@@ -80,3 +80,36 @@ class UnitDamage:
             amplifyer = (100-unit.extra_debuffs)/100 #Applies simple buffs/debuffs
             dealt_dmg.append((unit, (dmg_dict[unit.type]*weighted_list[i])*amplifyer)) #Gets estimated damage (Note there is rng on upto +/-50%)
         return dealt_dmg
+
+
+class UnitInfo:
+    def __init__(self, unit: Unit, amount: int, solo_dmg_list: list[tuple[float,float]], health: float, max_health: float):
+        """
+        The `solo_dmg_list` is a `list` that contains a `tuple` with (attack, defence) against each unit type. 
+        
+        The attack and defence should be the `float` attack/defence value from a single, unharmed unit of the unit type.
+        """
+        self.unit = unit
+        self.amount = amount
+        self.solo_dmg_list = solo_dmg_list
+        self.heath = health
+        self.max_health = max_health
+        self.solo_dmg_list = []
+
+
+
+
+class UnitStack:
+    def __init__(self, stack_list: list[UnitInfo]):
+        self.stack_list = stack_list
+
+    
+    def attack_stack(self, terrain: str, enemy):
+        """
+        - terrain: name of the terrain type
+        - enemy: of type UnitStack
+        """
+        
+
+
+
