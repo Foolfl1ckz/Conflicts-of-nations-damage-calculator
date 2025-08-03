@@ -92,9 +92,28 @@ class UnitInfo:
         self.unit = unit
         self.amount = amount
         self.solo_dmg_list = solo_dmg_list
-        self.heath = health
+        self.health = health
         self.max_health = max_health
-        self.solo_dmg_list = []
+        self.current_unit_health = health - (max_health/amount)*(amount-1)
+        self.current_unit_max_health = max_health - (max_health/amount)*(amount-1)
+        current_unit_health_ratio =  self.current_unit_health/self.current_unit_max_health
+        self.current_unit_dmg_list = [] 
+        for dmg_tuple in solo_dmg_list:
+            current_dmg_tuple_list = []
+            for dmg in dmg_tuple:
+                current_dmg_tuple_list.append(dmg*current_unit_health_ratio)
+            self.current_unit_dmg_list.append(current_dmg_tuple_list[0],current_dmg_tuple_list[1])
+    
+    def update_current_unit(self):
+        self.current_unit_health = self.health - (self.max_health/self.amount)*(self.amount-1)
+        self.current_unit_max_health = self.max_health - (self.max_health/self.amount)*(self.amount-1)
+        current_unit_health_ratio =  self.current_unit_health/self.current_unit_max_health
+        self.current_unit_dmg_list = [] 
+        for dmg_tuple in self.solo_dmg_list:
+            current_dmg_tuple_list = []
+            for dmg in dmg_tuple:
+                current_dmg_tuple_list.append(dmg*current_unit_health_ratio)
+            self.current_unit_dmg_list.append(current_dmg_tuple_list[0],current_dmg_tuple_list[1])
 
 
 
